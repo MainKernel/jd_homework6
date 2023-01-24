@@ -1,0 +1,5 @@
+{
+  "databaseUrl" : "jdbc:h2:./clientDB",
+  "databasePassword" : null,
+  "databaseLogin": null
+}
