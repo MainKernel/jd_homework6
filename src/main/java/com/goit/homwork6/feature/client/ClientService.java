@@ -11,6 +11,7 @@ public class ClientService {
     private PreparedStatement create;
     private PreparedStatement getMaxID;
     private PreparedStatement getById;
+    private PreparedStatement getByName;
     private PreparedStatement setName;
     private PreparedStatement deleteById;
     private PreparedStatement listAll;
@@ -34,6 +35,9 @@ public class ClientService {
             );
             this.getMaxID = connection.prepareStatement(
                     "SELECT MAX(ID) AS ID FROM CLIENT"
+            );
+            this.getByName = connection.prepareStatement(
+                    "SELECT ID FROM CLIENT WHERE NAME = ?"
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,5 +109,20 @@ public class ClientService {
         ResultSet set = getMaxID.executeQuery();
         set.next();
         return set.getLong("ID");
+    }
+
+    public long getIdByName(String name) throws SQLException {
+        getByName.setString(1, name);
+        ResultSet set = getByName.executeQuery();
+        long id = 0;
+
+        try {
+            set.next();
+            id = set.getLong("ID");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return id;
+
     }
 }
