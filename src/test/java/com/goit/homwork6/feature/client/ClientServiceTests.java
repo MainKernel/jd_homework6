@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 class ClientServiceTests {
 
@@ -79,23 +82,28 @@ class ClientServiceTests {
         Assertions.assertEquals(0, maxId);
     }
 
-/*
     @Test
     public void testThatSelectAllWorks() throws SQLException{
         //Given
-        String clientName = "TeamGroup";
-        long teamGroup = service.create(clientName);
+        List<String> clientNames = new ArrayList<>();
+        clientNames.add("SAMSUNG");
+        clientNames.add("LTD company");
+        clientNames.add("Free inc.");
+        clientNames.add("Army");
+        clientNames.add("FOSS");
 
         //Expected
         List<Client> clients = service.listAll();
-        Client client = clients.get(0);
-        long id = client.getId();
-        String name = client.getName();
+        List<String> clientsName = new ArrayList<>();
+        for (Client c: clients) {
+            clientsName.add(c.getName());
+        }
 
         //Assertion
-        Assertions.assertEquals(teamGroup,id);
-        Assertions.assertEquals(name, clientName);
+        Collections.sort(clientNames);
+        Collections.sort(clientsName);
+        Assertions.assertLinesMatch(clientNames, clientsName);
+
     }
 
- */
 }
